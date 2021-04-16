@@ -1,0 +1,19 @@
+--- dwm.c
++++ dwm.c
+@@ -131,6 +132,7 @@ struct Monitor {
+ 	Monitor *next;
+ 	Window barwin;
+ 	const Layout *lt[2];
++	Pertag *pertag;
+ };
+ 
+ typedef struct {
+@@ -1727,7 +1753,7 @@ tile(Monitor *m)
+ void
+ togglebar(const Arg *arg)
+ {
+-	selmon->showbar = !selmon->showbar;
++	selmon->showbar = selmon->pertag->showbars[selmon->pertag->curtag] = !selmon->showbar;
+ 	updatebarpos(selmon);
+ 	XMoveResizeWindow(dpy, selmon->barwin, selmon->wx, selmon->by, selmon->ww, bh);
+ 	arrange(selmon);
