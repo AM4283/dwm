@@ -1,5 +1,6 @@
 # DWM
 The Suckless Dynamic Window Manager.
+
 This is my personal build. Utilizes polybar for a bar (ik its bloated, I will make a version using slstatus or dwm blocks soon)
 
 ## Patches
@@ -73,5 +74,6 @@ All of the current keybindings are:
   - **prntscrn** Take a screenshot (flameshot app)
 ## Dependencies
 *Unfinished List*
+
 Currently, the dependencies include the default dwm dependencies as well as:
 'Rofi, polybar w/dwm module, alacritty, light, flameshot, playerctl, pavucontrol, font awesome, mononoki Nerd Font, Hack font, Noto Color emoji, rofimoji, rofi scripts'
