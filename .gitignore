@@ -1,0 +1,9 @@
+autostart.sh
+config.def.h.bak
+config.def.h.orig
+config.def.h.rej
+config.h.bak
+dwm.1.orig
+dwm.c.orig
+dwm.c.rej
+patches/dwm-attachasideandbelow-20200702-f04cac6.diff
