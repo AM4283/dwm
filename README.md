@@ -76,4 +76,6 @@ All of the current keybindings are:
 *Unfinished List*
 
 Currently, the dependencies include the default dwm dependencies as well as:
-'Rofi, polybar w/dwm module, alacritty, light, flameshot, playerctl, pavucontrol, font awesome, mononoki Nerd Font, Hack font, Noto Color emoji, rofimoji, rofi scripts'
+```
+Rofi, polybar w/dwm module, alacritty, light, flameshot, playerctl, pavucontrol, font awesome, mononoki Nerd Font, Hack font, Noto Color emoji, rofimoji, rofi scripts
+```
