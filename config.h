@@ -9,8 +9,12 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const int usealtbar          = 1;        /* 1 means use non-dwm status bar */
 static const char *altbarclass      = "Polybar"; /* Alternate bar class name */
 static const char *alttrayname      = "tray";    /* Polybar tray instance name */
-static const char *altbarcmd        = "$HOME/bar.sh"; /* Alternate bar launch command */
-static const char *fonts[]          = { "monospace:size=10" };
+static const char *altbarcmd        = "$HOME/.config/polybar/launch.sh"; /* Alternate bar launch command */
+static const char *fonts[]          = { "monospace:size=10",
+					"mononoki Nerd Font:size=9:antialias=true:autohint=true",
+					"Hack:size=8:antialias=true:autohint=true",
+					"Noto Color Emoji:size=10:antialias=true:autohint=true"
+                                      };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -24,7 +28,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "", "", "", "", "", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -32,15 +36,18 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor    float x,y,w,h       floatborderpx */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1,        50,50,500,500,      5},
-	{ "Firefox",  NULL,       NULL,       2,            0,           -1,        50,50,500,500,      5},
+	{ "Gimp",     NULL,       NULL,       0,            1,           -1,        50,50,500,500,      2},
+	{ "Firefox",  NULL,       NULL,       2,            0,           -1,        50,50,500,500,      2},
 	{ "Pavucontrol", NULL,    NULL,       0,            1,           -1,        50,50,500,500,      2},
+	{ "Alacritty", "editing", NULL,       0,            1,           -1,        50,50,500,500,      2},
+	{ "Gnome-calculator", NULL, NULL,     0,            1,           -1,        50,50,360,402,      2},
 };
 
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int attachdirection = 0;    /* 0 default, 1 above, 2 aside, 3 below, 4 bottom, 5 top */
 
 #include "layouts.c"
 #include "fibonacci.c"
@@ -86,6 +93,7 @@ static const char *brightup[] = { "light", "-A", "5", NULL};
 static const char *brightdown[] = { "light", "-U", "5", NULL};
 static const char *screenshot[] = { "flameshot", "gui", NULL};
 static const char *volcontrol[] = { "pavucontrol", NULL};
+static const char *polybar[] = { "/home/albi/.config/polybar/launch.sh", NULL};
 static Key keys[] = {
 	/* modifier          chainkey   key        function        argument */
 	{ MODKEY,             -1,          XK_p,      spawn,          {.v = dmenucmd } },
@@ -96,6 +104,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,   XK_d,        XK_x,      spawn,          SHCMD("/home/albi/dmscripts/dmkill") },
 	{ MODKEY|ShiftMask,   XK_d,        XK_apostrophe,  spawn,     SHCMD("rofimoji") },
 	{ MODKEY|ShiftMask,   -1,          XK_b,      togglebar,      {0} },
+	{ MODKEY|ControlMask, -1,          XK_b,      spawn,          {.v = polybar } },
 	{ MODKEY,             -1,          XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,             -1,          XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY|ShiftMask,   -1,          XK_j,      rotatestack,    {.i = +1 } },

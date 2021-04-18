@@ -16,6 +16,6 @@ parcellite -n &
 ntfd &
 nm-applet &
 picom -f &
-feh --bg-fill /home/albi/Pictures/backgrounds/wp5504447.jpg &
+feh --bg-fill /home/albi/Pictures/backgrounds/wp5504447.jpg
 #/home/albi/.config/scripts/locker &
-/home/albi/.config/polybar/launch.sh
+#/home/albi/.config/polybar/launch.sh
