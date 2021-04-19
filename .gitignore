@@ -3,7 +3,13 @@ config.def.h.bak
 config.def.h.orig
 config.def.h.rej
 config.h.bak
+config.h.orig
+config.h.rej
+config.mk.orig
+config.mk.rej
 dwm.1.orig
 dwm.c.orig
 dwm.c.rej
+drw.c.orig
+drw.h.orig
 patches/dwm-attachasideandbelow-20200702-f04cac6.diff
