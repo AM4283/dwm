@@ -26,7 +26,7 @@ YAJLLIBS = -lyajl
 YAJLINC = /usr/include/yajl
 
 # includes and libs
-INCS = -I${X11INC} -I${FREETYPEINC} -I${YAJLINC}
+INCS = -I${X11INC} -I${FREETYPEINC}
 LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS} -lXrender -lX11-xcb -lxcb -lxcb-res ${KVMLIB} ${YAJLLIBS}
 
 # flags
