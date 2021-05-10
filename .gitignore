@@ -4,5 +4,5 @@ autostart.sh
 *.rej
 *.o
 dwm
-dwm-message
+dwm-msg
 patches/dwm-attachasideandbelow-20200702-f04cac6.diff
