@@ -20,9 +20,9 @@ static const char *altbarcmd        = "";
 // Fonts
 static const char *fonts[]          = { "fixed:size=9:antialias=true:autohint=true",
                                         "mononoki Nerd Font:size=9:antialias=true:autohint=true",
-					                    "Noto Color Emoji:size=10:antialias=true:autohint=true"
+					                    "Noto Color Emoji:size=9:antialias=true:autohint=true"
                                       };
-static const char dmenufont[]       = "monospace:size=10";
+static const char dmenufont[]       = "fixed:size=10";
 
 /* Colors and Transparency */
 //background color
@@ -72,13 +72,15 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask  isfloating  isterminal  noswallow  monitor    float x,y,w,h       floatborderpx */
 	{ "Gimp",     NULL,       NULL,       0,          1,  0,   0,  -1,         50, 50,500,500,      2},
     { "Firefox",  NULL,       NULL,       1 << 1,     0,  0,  -1,  -1,         50, 50,500,500,      2},
+    { "firefox",  NULL,       NULL,       1 << 1,     0,  0,  -1,  -1,         50, 50,500,500,      2},
 	{ "Brave-browser",  NULL, NULL,       1 << 1,     0,  0,  -1,  -1,         50, 50,500,500,      2},
-	{ "Spotify",  NULL,       NULL,       1 << 3,     0,  0,  -1,  -1,         50, 50,500,500,      2},
+	{ "Spotify",       NULL,       NULL,      1 << 3,     0,  0,  -1,  -1,         50, 50,500,500,      2},
 	{ "discord",  NULL,       NULL,       1 << 2,     0,  0,  -1,  -1,         50, 50,500,500,      2},
 	{ "Pavucontrol", NULL,    NULL,       0,          1,  0,   0,  -1,         50, 50,500,500,      2},
     { "Alacritty", NULL,      NULL,       0,          0,  1,   0,  -1,        100,100,750,750,      2},
-	{ "Alacritty", "editing", NULL,       0,          1,  1,   0,  -1,         50, 50,500,500,      2},
+//	{ "Alacritty", "editing", NULL,       0,          1,  1,   0,  -1,         50, 50,500,500,      2},
 	{ "Gnome-calculator", NULL, NULL,     0,          1,  0,   0,  -1,         50, 50,360,402,      2},
+	{ "trayer", NULL, NULL,               0,          1,  0,   1,  -1,         50, 50, 10, 10,      0},
     { NULL,     NULL,     "Event Tester", 0,          0,  0,   1,  -1,         50, 50,500,500,      2}, /* xev */
 };
 
@@ -125,14 +127,16 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *roficmd[] = { "rofi", "-modi", "window,ssh,drun,run", "-show", "drun", NULL };
-static const char *termcmd[]  = { "alacritty", NULL };
 static const char *logoutcmd[] = { "/home/albi/.config/scripts/shutdown_menu", NULL };
-static const char *screenshot[] = { "flameshot", "gui", NULL};
-static const char *volcontrol[] = { "pavucontrol", NULL};
 static const char *polybar[] = { "/home/albi/.config/polybar/launch.sh", NULL};
+static const char *roficmd[] = { "rofi", "-modi", "window,ssh,drun,run", "-show", "drun", NULL };
 static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { "alacritty", "-t", scratchpadname, "-d", "120", "34", NULL };
+//static const char *scratchpadcmd[] = { "alacritty", "-t", scratchpadname, "-d", "120", "34", NULL };
+static const char *scratchpadcmd[] = { "alacritty", "-t", scratchpadname, NULL };
+static const char *screenshot[] = { "flameshot", "gui", NULL};
+static const char *termcmd[]  = { "alacritty", NULL };
+static const char *trayer[] = { "trayer", "--widthtype", "pixel", "--width", "20", "--height", "20", "--align", "right", "--edge", "top", NULL };
+static const char *volcontrol[] = { "pavucontrol", NULL};
 
 // Media functions //
 //static const char *upvol[] = { "amixer", "-q", "-D", "pulse", "sset", "Master", "5%+", NULL};
@@ -156,6 +160,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask, -1,          XK_b,      spawn,          {.v = polybar } },
 	{ MODKEY|ShiftMask,   -1,          XK_v,      spawn,          {.v = volcontrol } },
 	{ 0,                  -1,          XK_Print,  spawn,          {.v = screenshot } },
+    { MODKEY|ShiftMask,   -1,          XK_p,      spawn,          {.v = trayer } },
 
 // Rofi/dmenu
 	{ MODKEY,             -1,          XK_p,      spawn,          {.v = dmenucmd } },
@@ -246,6 +251,7 @@ static Key keys[] = {
 //	{ 0,                  -1,          XF86XK_MonBrightnessDown, spawn, {.v = brightdown } },
 	{ 0,                  -1,          XF86XK_MonBrightnessUp,  spawn, SHCMD("light -A 5; pkill -RTMIN+6 dwmblocks") },
 	{ 0,                  -1,          XF86XK_MonBrightnessDown, spawn, SHCMD("light -U 5; pkill -RTMIN+6 dwmblocks") },
+    { MODKEY,             -1,          XK_F4,                   spawn, SHCMD("toggletouchpad") },
 
 // Tag Movement
     { MODKEY,             -1,          XK_0,      view,           {.ui = ~0 } },

@@ -1,7 +1,7 @@
 # DWM
 The Suckless Dynamic Window Manager.
 
-This is my personal build. Utilizes polybar for a bar (ik its bloated, I will make a version using slstatus or dwm blocks soon)
+This is my personal build. Able to use polybar as a bar. Currently used with my build of dwmblocks + necessary scripts.
 
 ## Patches
 This build includes the patches:
