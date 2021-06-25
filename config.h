@@ -34,8 +34,10 @@ static const char col_gray3[]         = "#ffffff";
 //current tag and current window font color
 static const char col_gray4[]         = "#ffffff";
 //Top bar second color (under window title) and active window border color
-static const char col_cyan[]          = "#81a1c1";
-static const char col_cyan2[]         = "#88c0d0";
+// static const char col_cyan[]          = "#81a1c1"; //statusbar
+static const char col_cyan[]          = "#ff19ff";
+// static const char col_cyan2[]         = "#88c0d0"; //selected tags
+static const char col_cyan2[]         = "#cc00cc";
 static const unsigned int baralpha    = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 static const char normmarkcolor[]     = "#775500";	/*border color for marked client*/
@@ -55,6 +57,7 @@ static const unsigned int alphas[][4]      = {
 	/*               fg      bg        border     */
 	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
 	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+    [SchemeStatus] = { OPAQUE, baralpha, borderalpha },
 };
 
 // Sticky Icon
@@ -134,7 +137,7 @@ static const char scratchpadname[] = "scratchpad";
 //static const char *scratchpadcmd[] = { "alacritty", "-t", scratchpadname, "-d", "120", "34", NULL };
 static const char *scratchpadcmd[] = { "alacritty", "-t", scratchpadname, NULL };
 static const char *screenshot[] = { "flameshot", "gui", NULL};
-static const char *termcmd[]  = { "alacritty", NULL };
+static const char *termcmd[]  = { "st", NULL };
 static const char *trayer[] = { "trayer", "--widthtype", "pixel", "--width", "20", "--height", "20", "--align", "right", "--edge", "top", NULL };
 static const char *volcontrol[] = { "pavucontrol", NULL};
 
@@ -159,7 +162,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,   -1,          XK_b,      togglebar,      {0} },
 	{ MODKEY|ControlMask, -1,          XK_b,      spawn,          {.v = polybar } },
 	{ MODKEY|ShiftMask,   -1,          XK_v,      spawn,          {.v = volcontrol } },
-	{ 0,                  -1,          XK_Print,  spawn,          {.v = screenshot } },
+	//{ 0,                  -1,          XK_Print,  spawn,          {.v = screenshot } },
     { MODKEY|ShiftMask,   -1,          XK_p,      spawn,          {.v = trayer } },
 
 // Rofi/dmenu
@@ -177,8 +180,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,   -1,          XK_k,      rotatestack,    {.i = -1 } },
 	{ MODKEY,             -1,          XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,             -1,          XK_o,      incnmaster,     {.i = -1 } },
-	{ MODKEY,             -1,          XK_y,      focusmaster,    {0} },
-    { MODKEY|ShiftMask,   -1,          XK_y,      resetnmaster,   {0} },
+	{ MODKEY,             -1,          XK_u,      focusmaster,    {0} },
+    { MODKEY|ShiftMask,   -1,          XK_o,      resetnmaster,   {0} },
 	{ MODKEY,             -1,          XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,             -1,          XK_l,      setmfact,       {.f = +0.05} },
     { MODKEY|ShiftMask,   -1,          XK_h,      setcfact,       {.f = +0.25} },
@@ -189,7 +192,7 @@ static Key keys[] = {
     { MODKEY,             -1,          XK_semicolon,   togglemark,  {0} },
     { MODKEY,             -1,          XK_bracketleft, swapfocus,   {0} },
     { MODKEY|ShiftMask,   -1,          XK_bracketleft, swapclient,  {0} },
-	{ MODKEY|ShiftMask,   -1,          XK_i,      zoom,           {0} },
+	{ MODKEY|ShiftMask,   -1,          XK_u,      zoom,           {0} },
 	{ MODKEY|ShiftMask,   -1,          XK_q,      killclient,     {0} },
 
 //  Layouts
@@ -256,6 +259,7 @@ static Key keys[] = {
 // Tag Movement
     { MODKEY,             -1,          XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY,             -1,          XK_Tab,    view,           {0} },
+    { MODKEY|ShiftMask,   -1,          XK_Tab,    spawn,          SHCMD("skippy-xd") },
 	{ MODKEY|ShiftMask,   -1,          XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,             -1,          XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,             -1,          XK_period, focusmon,       {.i = +1 } },

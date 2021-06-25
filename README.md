@@ -22,6 +22,7 @@ deck             | **Deck layout (monocole on stack)**
 fibonacci        | **Fibonacci and dwindle layouts**
 floatrules       | **Configurable rules for sizing floating windows on spawn**
 focusmaster      | **Focus master keybindings**
+focusonnetactive | **Makes DWM focus windows requested by _NET_ACTIVE_WINDOW (allows skippy-xd to work)**
 gridmode         | **Grid, horizontal grid, nrowgrid, gapless grid, layouts**
 hide vacant tags | **Hide tags on default statusbar that are empty**
 inplacerotate    | **Able to move windows only in stack or only in master**
@@ -68,9 +69,9 @@ warp             | **warps cursor to center of focused window**
   - **Mod+Shift+j/k** Move window up/down entire stack
   - **Mod+Control+j/k** Move window up/down only on master or slave stack
   - **Mod+i/o** Increase/decrease number of master windows
-  - **Mod+Shift+i** Make window the new master window
-  - **Mod+y** Focus master window
-  - **Mod+Shift+y** Reset number of master windows
+  - **Mod+Shift+i** Reset number of master windows
+  - **Mod+u** Focus master window
+  - **Mod+Shift+u** Make window the new master window
   - **Mod+semicolon** Mark window to be swapped
   - **Mod+leftbracket** Swap focus to marked window
   - **Mod+Shift+leftbracket** Switch window with marked window
@@ -142,5 +143,5 @@ warp             | **warps cursor to center of focused window**
 
 Currently, the dependencies include the default dwm dependencies as well as:
 ```
-Rofi, polybar w/dwm module, alacritty, light, flameshot, playerctl, pavucontrol, font awesome, mononoki Nerd Font, Hack font, Noto Color emoji, rofimoji, rofi scripts
+Rofi, polybar w/dwm module, alacritty, light, flameshot, playerctl, pavucontrol, font awesome, mononoki Nerd Font, Hack font, Noto Color emoji, rofimoji, rofi scripts, skippy-xd-git
 ```
