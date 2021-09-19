@@ -5,58 +5,58 @@ This is my personal build. Able to use polybar as a bar. Currently used with my 
 
 ## Patches
 This build includes the patches:
-Patch | Functionality
-------|------
-actualfullscreen | **true fullscreen support**
-alpha            | **default bar transparency, transparent window border fix**
-anybar (with polybar tray fix) | **Alternate bar support**
-attach direction | **different master/slave behavior support** 
-autostart        | **autostart script support**
-bottomstack      | **Bottom stack and bottom stack horizontal layouts**
-cfacts           | **Allows for resizing of windows vertically**
-colorbar         | **More configurable default statusbar colors**
-combo            | **Support for selecting multiple tags by holding down mod+tag**
-centeredmaster   | **Centered master layout**
-cyclelayouts     | **Cycle through layouts w/ bindings**
-deck             | **Deck layout (monocole on stack)**
-fibonacci        | **Fibonacci and dwindle layouts**
-floatrules       | **Configurable rules for sizing floating windows on spawn**
-focusadjacenttag | **Focuses or moves window to left/right tag**
-focusmaster      | **Focus master keybindings**
-focusonnetactive | **Makes DWM focus windows requested by _NET_ACTIVE_WINDOW (allows skippy-xd to work)**
-gridmode         | **Grid, horizontal grid, nrowgrid, gapless grid, layouts**
-hide vacant tags | **Hide tags on default statusbar that are empty**
-inplacerotate    | **Able to move windows only in stack or only in master**
-ipc              | **ipc functions**
-keychain         | **Keychord keybinding support**
-mark-new         | **Allows for windows to be marked and switched focus with**
-netclientliststacking | **Allows for screensharing in certain applications (zoom)**
-pertag           | **Per tag layout support**
-resetlayout      | **Keybinding to reset size of windows in layout**
-resetnmaster     | **Keybinding to reset number of master windows**
-restartsig       | **Restart dwm keybinding**
-rotatestack      | **Rotate window through stack**
-savefloats       | **Saves size+location of floating window when toggling back to tiling**
-scratchpad       | **Terminal scratchpad functionality**
-sendmon_keepfocus| **Keeps window focus when sending to other monitor**
-statusallmons    | **Draws statusbar on all monitors**
-steam            | **prevents client focus issues on steam/widows games**
-sticky           | **Allows for a window to be toggled to be shown on all tags easily**
-stickyindicator  | **Adds sticky window indicator in default statusbar**
-shiftview        | **Switch through next/prev tags w/ binding**
-shiftviewclients | **Switch through next/prev tags w/binding that are not vacant**
-statuscmd        | **Clickable DWM blocks support**
-swallow          | **Allows for windows to swallow when spawned from terminal**
-swapfocus        | **Keybinding to swap focus to last used window**
-swaptags         | **Keybinding to swap contents of one tag with another**
-switchcol        | **Keybinding to switch between master/stack columns**
-tagall           | **Keybinding to move all windows of one tag to another**
-tagallmonitor    | **Keybinding to move all windows of one monitor to another**
-tagothermonitor  | **Keybinding to move window to specific tag of other monitor**
-tagswapmon       | **Keybinding to swap contents of one monitor with another**
-vanitygaps       | **Highly configurable gaps that work on each layout**
-viewontag        | **Switches focus to tag when moving window**
-warp             | **warps cursor to center of focused window**
+| Patch | Functionality |
+| :-- |:-- |
+| actualfullscreen | **True fullscreen support**
+| alpha            | **Default bar transparency, transparent window border fix**
+| anybar (with polybar tray fix) | **Alternate bar support**
+| attach direction | **Different master/slave behavior support** 
+| autostart        | **Autostart script support**
+| bottomstack      | **Bottom stack and bottom stack horizontal layouts**
+| cfacts           | **Allows for resizing of windows vertically**
+| colorbar         | **More configurable default statusbar colors**
+| combo            | **Support for selecting multiple tags by holding down mod+tag**
+| centeredmaster   | **Centered master layout**
+| cyclelayouts     | **Cycle through layouts w/ bindings**
+| deck             | **Deck layout (monocole on stack)**
+| fibonacci        | **Fibonacci and dwindle layouts**
+| floatrules       | **Configurable rules for sizing floating windows on spawn**
+| focusadjacenttag | **Focuses or moves window to left/right tag**
+| focusmaster      | **Focus master keybindings**
+| focusonnetactive | **Makes DWM focus windows requested by NET_ACTIVE_WINDOW (allows skippy-xd to work)**
+| gridmode         | **Grid, horizontal grid, nrowgrid, gapless grid, layouts** |
+| hide vacant tags | **Hide tags on default statusbar that are empty** |
+| inplacerotate    | **Able to move windows only in stack or only in master** |
+| ipc              | **ipc functions** |
+| keychain         | **Keychord keybinding support** |
+| mark-new         | **Allows for windows to be marked and switched focus with** |
+| netclientliststacking | **Allows for screensharing in certain applications (zoom)** |
+| pertag           | **Per tag layout support** |
+| resetlayout      | **Keybinding to reset size of windows in layout** |
+| resetnmaster     | **Keybinding to reset number of master windows** |
+| restartsig       | **Restart dwm keybinding** |
+| rotatestack      | **Rotate window through stack** |
+| savefloats       | **Saves size+location of floating window when toggling back to tiling** |
+| scratchpad       | **Terminal scratchpad functionality** |
+| sendmon_keepfocus| **Keeps window focus when sending to other monitor** |
+| statusallmons    | **Draws statusbar on all monitors** |
+| steam            | **prevents client focus issues on steam/widows games** |
+| sticky           | **Allows for a window to be toggled to be shown on all tags easily** |
+| stickyindicator  | **Adds sticky window indicator in default statusbar** |
+| shiftview        | **Switch through next/prev tags w/ binding** |
+| shiftviewclients | **Switch through next/prev tags w/binding that are not vacant** |
+| statuscmd        | **Clickable DWM blocks support** |
+| swallow          | **Allows for windows to swallow when spawned from terminal** |
+| swapfocus        | **Keybinding to swap focus to last used window** |
+| swaptags         | **Keybinding to swap contents of one tag with another** |
+| switchcol        | **Keybinding to switch between master/stack columns** |
+| tagall           | **Keybinding to move all windows of one tag to another** |
+| tagallmonitor    | **Keybinding to move all windows of one monitor to another** |
+| tagothermonitor  | **Keybinding to move window to specific tag of other monitor** |
+| tagswapmon       | **Keybinding to swap contents of one monitor with another** |
+| vanitygaps       | **Highly configurable gaps that work on each layout** |
+| viewontag        | **Switches focus to tag when moving window** | 
+| warp             | **Warps cursor to center of focused window** |
 
 ## Keybinds
 
