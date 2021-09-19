@@ -1,0 +1,80 @@
+From 9d9ffce06c0ac0903917e19a7e70a78813e12e2f Mon Sep 17 00:00:00 2001
+From: Dennis Witzig <dennis@wtzg.de>
+Date: Mon, 1 Jun 2020 23:02:45 +0200
+Subject: [PATCH] Add ability to move a window to specific tag on the next or
+ previous monitor
+
+---
+ config.def.h |  4 +++-
+ dwm.c        | 33 +++++++++++++++++++++++++++++++++
+ 2 files changed, 36 insertions(+), 1 deletion(-)
+
+diff --git a/config.def.h b/config.def.h
+index 1c0b587..580382e 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -49,7 +49,9 @@ static const Layout layouts[] = {
+ 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+ 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+ 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
++	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} }, \
++	{ MODKEY|Mod4Mask,              KEY,      tagnextmon,     {.ui = 1 << TAG} }, \
++	{ MODKEY|Mod4Mask|ShiftMask,    KEY,      tagprevmon,     {.ui = 1 << TAG} },
+ 
+ /* helper for spawning shell commands in the pre dwm-5.0 fashion */
+ #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+diff --git a/dwm.c b/dwm.c
+index 4465af1..d3ace89 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -208,6 +208,9 @@ static void sigchld(int unused);
+ static void spawn(const Arg *arg);
+ static void tag(const Arg *arg);
+ static void tagmon(const Arg *arg);
++static void tagnextmon(const Arg *arg);
++static void tagprevmon(const Arg *arg);
++static void tagothermon(const Arg *arg, int dir);
+ static void tile(Monitor *);
+ static void togglebar(const Arg *arg);
+ static void togglefloating(const Arg *arg);
+@@ -1670,6 +1673,36 @@ tagmon(const Arg *arg)
+ 	sendmon(selmon->sel, dirtomon(arg->i));
+ }
+ 
++void
++tagnextmon(const Arg *arg)
++{
++	tagothermon(arg, 1);
++}
++
++void
++tagprevmon(const Arg *arg)
++{
++	tagothermon(arg, -1);
++}
++
++void
++tagothermon(const Arg *arg, int dir)
++{
++	Client *sel;
++	Monitor *newmon;
++
++	if (!selmon->sel || !mons->next)
++		return;
++	sel = selmon->sel;
++	newmon = dirtomon(dir);
++	sendmon(sel, newmon);
++	if (arg->ui & TAGMASK) {
++		sel->tags = arg->ui & TAGMASK;
++		focus(NULL);
++		arrange(newmon);
++	}
++}
++
+ void
+ tile(Monitor *m)
+ {
+-- 
+2.26.2
+
