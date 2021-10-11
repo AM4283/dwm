@@ -1,8 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance and bar */
-static const unsigned int borderpx = 2; /* border pixel of windows */
-static const unsigned int snap = 32;    /* snap pixel */
+static unsigned int borderpx = 2; /* border pixel of windows */
+static unsigned int snap = 32;    /* snap pixel */
 static const int swallowfloating =
     1; /* 1 means swallow floating windows by default */
 static const unsigned int gappih = 10; /* horiz inner gap between windows */
@@ -12,9 +12,9 @@ static const unsigned int gappoh =
 static const unsigned int gappov =
     10; /* vert outer gap between windows and screen edge */
 static int smartgaps =
-    0; /* 1 means no outer gap when there is only one window */
-static const int showbar = 1;               /* 0 means no bar */
-static const int topbar = 1;                /* 0 means bottom bar */
+    0;                  /* 1 means no outer gap when there is only one window */
+static int showbar = 1; /* 0 means no bar */
+static int topbar = 1;  /* 0 means bottom bar */
 static const int usealtbar = 0;             /* 1 means use non-dwm status bar */
 static const char *altbarclass = "Polybar"; /* Alternate bar class name */
 static const char *alttrayname = "tray";    /* Polybar tray instance name */
@@ -23,56 +23,60 @@ static const char *alttrayname = "tray";    /* Polybar tray instance name */
 static const char *altbarcmd = "";
 static const Bool viewontag = True; /* Switch view on tag switch */
 // Fonts
-static const char *fonts[] = {
-    "fixed:size=12:antialias=true:autohint=true",
-    "mononoki Nerd Font:size=12:antialias=true:autohint=true",
-    "Noto Color Emoji:size=12:antialias=true:autohint=true"};
-static const char dmenufont[] = "fixed:size=10";
+static char font1[] = "fixed:size=12:antialias=true:autohint=true";
+static char font2[] = "mononoki Nerd Font:size=12:antialias=true:autohint=true";
+static char emojifont[] =
+    "Noto Color Emoji:size=12:antialias=true:autohint=true";
+/* static char *fonts[] = { */
+/*     "fixed:size=12:antialias=true:autohint=true", */
+/*     "mononoki Nerd Font:size=12:antialias=true:autohint=true", */
+/*     "Noto Color Emoji:size=12:antialias=true:autohint=true"}; */
+static char *fonts[] = {font1, font2, emojifont};
+static char dmenufont[] = "fixed:size=10";
 
 /* Colors and Transparency */
 // background color
-static const char col_gray1[] = "#2d3442";
+static char normbgcolor[] = "#2d3442";
 // inactive window border color
-static const char col_gray2[] = "#444444";
+static char normbordercolor[] = "#444444";
 // font color
-static const char col_gray3[] = "#ffffff";
+static char normfgcolor[] = "#ffffff";
 // current tag and current window font color
-static const char col_gray4[] = "#ffffff";
+static char selfgcolor[] = "#ffffff";
 // Top bar second color (under window title) and active window border color
 /* static const char col_cyan[]          = "#81a1c1"; //statusbar */
 /* static const char col_cyan[]          = "#ff19ff"; */
-static const char col_cyan[] = "#cc00cc";
+static char selbordercolor[] = "#cc00cc";
 /* static const char col_cyan2[]         = "#88c0d0"; //selected tags */
 /* static const char col_cyan2[]         = "#cc00cc"; */
-static const char col_cyan2[] = "#ff19ff";
+static char selbgcolor[] = "#ff19ff";
 static const unsigned int baralpha = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
-static const char normmarkcolor[] =
-    "#775500"; /*border color for marked client*/
-static const char selmarkcolor[] =
+static char normmarkcolor[] = "#775500"; /*border color for marked client*/
+static char selmarkcolor[] =
     "#e60053"; /*border color for marked client on focus*/
 
-static const char *colors[][4] = {
+static char *colors[][4] = {
     /*               fg         bg         border     mark   */
-    [SchemeNorm] = {col_gray3, col_gray1, col_gray2, normmarkcolor},
-    [SchemeSel] = {col_gray4, col_cyan, col_cyan, selmarkcolor},
-    [SchemeStatus] = {col_gray3, col_cyan, "#000000",
+    [SchemeNorm] = {normfgcolor, normbgcolor, normbordercolor, normmarkcolor},
+    [SchemeSel] = {selfgcolor, selbgcolor, selbordercolor, selmarkcolor},
+    [SchemeStatus] = {normfgcolor, selbordercolor, "#000000",
                       normmarkcolor}, // Statusbar right {text,background,not
                                       // used but cannot be empty}
     [SchemeTagsSel] =
-        {col_gray4, col_cyan2, "#000000",
+        {selfgcolor, selbgcolor, "#000000",
          selmarkcolor}, // Tagbar left selected {text,background,not used but
                         // cannot be empty}
     [SchemeTagsNorm] =
-        {col_gray3, col_gray1, "#000000",
+        {normfgcolor, normbgcolor, "#000000",
          normmarkcolor}, // Tagbar left unselected {text,background,not used but
                          // cannot be empty}
     [SchemeInfoSel] =
-        {col_gray4, col_gray1, "#000000",
+        {selfgcolor, normbgcolor, "#000000",
          selmarkcolor}, // infobar middle  selected {text,background,not used
                         // but cannot be empty}
     [SchemeInfoNorm] =
-        {col_gray3, col_gray1, "#000000",
+        {normfgcolor, normbgcolor, "#000000",
          normmarkcolor}, // infobar middle  unselected {text,background,not used
                          // but cannot be empty}
 };
@@ -148,10 +152,9 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact = 0.50; /* factor of master area size [0.05..0.95] */
-static const int nmaster = 1;    /* number of clients in master area */
-static const int resizehints =
-    1; /* 1 means respect size hints in tiled resizals */
+static float mfact = 0.50;  /* factor of master area size [0.05..0.95] */
+static int nmaster = 1;     /* number of clients in master area */
+static int resizehints = 1; /* 1 means respect size hints in tiled resizals */
 static const int attachdirection =
     0; /* 0 default, 1 above, 2 aside, 3 below, 4 bottom, 5 top */
 #define FORCE_VSPLIT                                                           \
@@ -212,9 +215,10 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] =
     "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = {
-    "dmenu_run", "-m",      dmenumon, "-fn",    dmenufont, "-nb",     col_gray1,
-    "-nf",       col_gray3, "-sb",    col_cyan, "-sf",     col_gray4, NULL};
+static const char *dmenucmd[] = {"dmenu_run", "-m",  dmenumon,       "-fn",
+                                 dmenufont,   "-nb", normbgcolor,    "-nf",
+                                 normfgcolor, "-sb", selbordercolor, "-sf",
+                                 selfgcolor,  NULL};
 static const char *logoutcmd[] = {"/home/albi/.config/scripts/shutdown_menu",
                                   NULL};
 static const char *polybar[] = {"/home/albi/.config/polybar/launch.sh", NULL};
@@ -245,6 +249,27 @@ static const char *playprev[] = {"playerctl", "previous", NULL};
 // Custom functions
 void resetnmaster(const Arg *arg);
 
+// Xresources preferences to load at startup
+ResourcePref resources[] = {
+    {"dwmfont", STRING, &font1},
+    {"dwmfontalt", STRING, &font2},
+    {"fontemoji", STRING, &emojifont},
+    {"dmenufont", STRING, &dmenufont},
+    {"normbgcolor", STRING, &normbgcolor},
+    {"normbordercolor", STRING, &normbordercolor},
+    {"normfgcolor", STRING, &normfgcolor},
+    {"selbgcolor", STRING, &selbgcolor},
+    {"selbordercolor", STRING, &selbordercolor},
+    {"selfgcolor", STRING, &selfgcolor},
+    {"borderpx", INTEGER, &borderpx},
+    {"snap", INTEGER, &snap},
+    {"showbar", INTEGER, &showbar},
+    {"topbar", INTEGER, &topbar},
+    {"nmaster", INTEGER, &nmaster},
+    {"resizehints", INTEGER, &resizehints},
+    {"mfact", FLOAT, &mfact},
+};
+
 static Key keys[] = {
     /* modifier          chainkey   key        function        argument */
     // Program launching
@@ -262,7 +287,7 @@ static Key keys[] = {
     {MODKEY, -1, XK_d, spawn, {.v = roficmd}},
     {MODKEY | ShiftMask, XK_d, XK_e, spawn,
      SHCMD("/home/albi/dmscripts/dmconf")},
-    {MODKEY | ShiftMask, XK_d, XK_b, spawn,
+    {MODKEY | ShiftMask, XK_d, XK_s, spawn,
      SHCMD("/home/albi/dmscripts/dmsearch")},
     {MODKEY | ShiftMask, XK_d, XK_x, spawn,
      SHCMD("/home/albi/dmscripts/dmkill")},
@@ -270,6 +295,9 @@ static Key keys[] = {
        SHCMD("rofimoji") }, */
     {MODKEY | ShiftMask, XK_d, XK_apostrophe, spawn,
      SHCMD("rofi -show emoji -modi emoji")},
+    {MODKEY | ShiftMask, XK_d, XK_b, spawn,
+     SHCMD("$XDG_CONFIG_HOME/scripts/backgroundswitcher")},
+    {MODKEY | ShiftMask, XK_d, XK_t, spawn, SHCMD("~/themes/themes.sh")},
 
     // Stack Movement
     {MODKEY, -1, XK_j, focusstack, {.i = +1}},

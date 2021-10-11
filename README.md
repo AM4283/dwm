@@ -57,6 +57,7 @@ This build includes the patches:
 | vanitygaps       | **Highly configurable gaps that work on each layout** |
 | viewontag        | **Switches focus to tag when moving window** | 
 | warp             | **Warps cursor to center of focused window** |
+| Xresources       | **Allows settings to be loaded from an Xresources file** |
 
 ## Keybinds
 
@@ -75,9 +76,11 @@ This build includes the patches:
   - **Mod+p** Launch dmenu
   - **Mod+Shift+d**
     * **E** Launch config rofi prompt
-    * **B** Launch search rofi prompt
+    * **S** Launch search rofi prompt
     * **X** Launch kill rofi prompt
     * **Apostrophe** Launch rofi emoji prompt
+    * **B** Launch sxiv background selection prompt
+    * **T** Launch rofi theme selection prompt
 
 ### Window Movement
   - **Mod+j/k** Focus stack up/down
@@ -170,5 +173,5 @@ This build includes the patches:
 
 Currently, the dependencies include the default dwm dependencies as well as:
 ```
-Rofi, polybar w/dwm module, alacritty, light, flameshot, playerctl, pavucontrol, font awesome, mononoki Nerd Font, Hack font, Noto Color emoji, rofimoji, rofi scripts, skippy-xd-git, yajl, jsoncpp, trayer
+Rofi, polybar w/dwm module, alacritty, light, flameshot, playerctl, pavucontrol, font awesome, mononoki Nerd Font, Hack font, Noto Color emoji, rofimoji, rofi scripts, skippy-xd-git, sxiv, yajl, jsoncpp, trayer
 ```
