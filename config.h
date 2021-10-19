@@ -160,26 +160,14 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod4Mask
-#define TAGKEYS(CHAIN, KEY, TAG)                                               \
-  {MODKEY, CHAIN, KEY, view, {.ui = 1 << TAG}},                                \
-      {MODKEY | ControlMask, CHAIN, KEY, toggleview, {.ui = 1 << TAG}},        \
-      {MODKEY | Mod1Mask | ControlMask,                                        \
-       CHAIN,                                                                  \
-       KEY,                                                                    \
-       swaptags,                                                               \
-       {.ui = 1 << TAG}},                                                      \
-      {MODKEY | ShiftMask, CHAIN, KEY, tag, {.ui = 1 << TAG}},                 \
-      {MODKEY | ControlMask | ShiftMask,                                       \
-       CHAIN,                                                                  \
-       KEY,                                                                    \
-       toggletag,                                                              \
-       {.ui = 1 << TAG}},                                                      \
-      {MODKEY | Mod1Mask, CHAIN, KEY, tagnextmon, {.ui = 1 << TAG}},           \
-      {MODKEY | Mod1Mask | ShiftMask,                                          \
-       CHAIN,                                                                  \
-       KEY,                                                                    \
-       tagprevmon,                                                             \
-       {.ui = 1 << TAG}},
+#define TAGKEYS(CHAIN, KEY, TAG)                                                  \
+  {MODKEY, CHAIN, KEY, view, {.ui = 1 << TAG}},                                   \
+  {MODKEY | ControlMask, CHAIN, KEY, toggleview, {.ui = 1 << TAG}},               \
+  {MODKEY | Mod1Mask | ControlMask, CHAIN, KEY, swaptags, {.ui = 1 << TAG}},      \
+  {MODKEY | ShiftMask, CHAIN, KEY, tag, {.ui = 1 << TAG}},                        \
+  {MODKEY | ControlMask | ShiftMask, CHAIN,  KEY,   toggletag,  {.ui = 1 << TAG}},\
+  {MODKEY | Mod1Mask, CHAIN, KEY, tagnextmon, {.ui = 1 << TAG}},                  \
+  {MODKEY | Mod1Mask | ShiftMask, CHAIN, KEY, tagprevmon, {.ui = 1 << TAG}},      \
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) {.v = (const char *[]) { "/bin/sh", "-c", cmd, NULL }}
@@ -190,8 +178,8 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = {"dmenu_run", "-m",  dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor,  NULL};
-static const char *logoutcmd[] = {"/home/albi/.config/scripts/shutdown_menu", NULL};
-static const char *polybar[] = {"/home/albi/.config/polybar/launch.sh", NULL};
+/* static const char *logoutcmd[] = {"$HOME/.config/scripts/shutdown_menu", NULL}; */
+/* static const char *polybar[] = {"$HOME/.config/polybar/launch.sh", NULL}; */
 static const char *roficmd[] = {"rofi",  "-modi", "window,ssh,drun,run", "-show", "drun",  NULL};
 static const char scratchpadname[] = "scratchpad";
 // static const char *scratchpadcmd[] = { "alacritty", "-t", scratchpadname, "-d", "120", "34", NULL };
@@ -241,8 +229,7 @@ static Key keys[] = {
     {MODKEY, -1, XK_Return, spawn, {.v = termcmd}},
     {MODKEY, -1, XK_grave, togglescratch, {.v = scratchpadcmd}},
     {MODKEY | ShiftMask, -1, XK_b, togglebar, {0}},
-    /* { MODKEY|ControlMask, -1,          XK_b,      spawn,          {.v =
-       polybar } }, */
+    /* { MODKEY|ControlMask, -1,          XK_b,      spawn,          SHCMD("$XDG_CONFIG_HOME/polybar/launch.sh") }, */
     {MODKEY | ShiftMask, -1, XK_v, spawn, {.v = volcontrol}},
     {0, -1, XK_Print, spawn, {.v = screenshot}},
     {MODKEY | ShiftMask, -1, XK_p, spawn, {.v = trayer}},
@@ -382,7 +369,7 @@ static Key keys[] = {
     // Quit DWM
     {MODKEY | ShiftMask, -1, XK_z, quit, {0}},
     {MODKEY | ControlMask | ShiftMask, -1, XK_q, quit, {1}},
-    {MODKEY, -1, XK_z, spawn, {.v = logoutcmd}},
+    {MODKEY, -1, XK_z, spawn, SHCMD("$XDG_CONFIG_HOME/scripts/shutdown_menu")},
 };
 
 /* button definitions */
