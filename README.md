@@ -78,6 +78,7 @@ This build includes the patches:
     * **E** Launch config rofi prompt
     * **S** Launch search rofi prompt
     * **X** Launch kill rofi prompt
+    * **N** Launch notes rofi prompt
     * **Apostrophe** Launch rofi emoji prompt
     * **B** Launch sxiv background selection prompt
     * **T** Launch rofi theme selection prompt
