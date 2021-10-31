@@ -95,7 +95,7 @@ static const Rule rules[] = {
     {"Alacritty", NULL, NULL, 0, 0, 1, 0, -1, 100, 100, 750, 750, 2},
     {"Alacritty", "editing", NULL, 0, 1, 1, 0, -1, 50, 50, 500, 500, 2},
     {"Anydesk", NULL, NULL, 0, 1, 0, -1, -1, -1, -1, -1, -1, 2},
-    {"Brave-browser", NULL, NULL, 1 << 1, 0, 0, -1, 1, 50, 50, 500, 500, 2},
+    {"Brave-browser", NULL, NULL, 1 << 1, 0, 0, -1, -1, 50, 50, 500, 500, 2},
     {"cemu.exe", NULL, NULL, 0, 1, 0, -1, -1, -1, -1, -1, -1, 2},
     {"discord", NULL, NULL, 1 << 3, 0, 0, -1, 1, 50, 50, 500, 500, 2},
     {"epicgameslauncher.exe", NULL, NULL, 0, 1, 0, -1, -1, -1, -1, -1, -1, 2},
