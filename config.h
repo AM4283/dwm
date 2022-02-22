@@ -11,18 +11,17 @@ static const unsigned int gappov = 10; /* vert outer gap between windows and scr
 static int smartgaps = 0;                  /* 1 means no outer gap when there is only one window */
 static int showbar = 1; /* 0 means no bar */
 static int topbar = 1;  /* 0 means bottom bar */
-static const int usealtbar = 0;             /* 1 means use non-dwm status bar */
+static const int usealtbar = 1;             /* 1 means use non-dwm status bar */
 static const char *altbarclass = "Polybar"; /* Alternate bar class name */
 static const char *alttrayname = "tray";    /* Polybar tray instance name */
-/* static const char *altbarcmd        = "$HOME/.config/polybar/launch.sh";
- * Alternate bar launch command */
-static const char *altbarcmd = "";
+ /* Alternate bar launch command */
+static const char *altbarcmd = "$HOME/.config/polybar/launch.sh";
+// static const char *altbarcmd = "";
 static const Bool viewontag = True; /* Switch view on tag switch */
 // Fonts
 static char font1[] = "fixed:size=12:antialias=true:autohint=true";
 static char font2[] = "mononoki Nerd Font:size=12:antialias=true:autohint=true";
-static char emojifont[] =
-    "Noto Color Emoji:size=12:antialias=true:autohint=true";
+static char emojifont[] = "Noto Color Emoji:size=12:antialias=true:autohint=true";
 /* static char *fonts[] = { */
 /*     "fixed:size=12:antialias=true:autohint=true", */
 /*     "mononoki Nerd Font:size=12:antialias=true:autohint=true", */
@@ -32,14 +31,10 @@ static char dmenufont[] = "fixed:size=10";
 
 /* Colors and Transparency */
 // background color
-static char normbgcolor[] = "#2d3442";
-// inactive window border color
-static char normbordercolor[] = "#444444";
-// font color
-static char normfgcolor[] = "#ffffff";
-// current tag and current window font color
-static char selfgcolor[] = "#ffffff";
-// Top bar second color (under window title) and active window border color
+static char normbgcolor[] = "#2d3442"; // inactive window border color
+static char normbordercolor[] = "#444444"; // font color
+static char normfgcolor[] = "#ffffff"; // current tag and current window font color
+static char selfgcolor[] = "#ffffff"; // Top bar second color (under window title) and active window border color
 /* static const char col_cyan[]          = "#81a1c1"; //statusbar */
 /* static const char col_cyan[]          = "#ff19ff"; */
 static char selbordercolor[] = "#cc00cc";
@@ -47,7 +42,7 @@ static char selbordercolor[] = "#cc00cc";
 /* static const char col_cyan2[]         = "#cc00cc"; */
 static char selbgcolor[] = "#ff19ff";
 // Alphas: 20% transparent, 10% transparent, 0% transparent
-/* static const unsigned int baralpha = 0xd0; */ 
+/* static const unsigned int baralpha = 0xd0; */
 static const unsigned int baralpha = 0xE6;
 /* static const unsigned int baralpha = 0xff; */
 static const unsigned int borderalpha = OPAQUE;
@@ -156,24 +151,24 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod4Mask
-#define TAGKEYS(CHAIN, KEY, TAG)                                                  \
-  {MODKEY, CHAIN, KEY, view, {.ui = 1 << TAG}},                                   \
-  {MODKEY | ControlMask, CHAIN, KEY, toggleview, {.ui = 1 << TAG}},               \
-  {MODKEY | Mod1Mask | ControlMask, CHAIN, KEY, swaptags, {.ui = 1 << TAG}},      \
-  {MODKEY | ShiftMask, CHAIN, KEY, tag, {.ui = 1 << TAG}},                        \
-  {MODKEY | ControlMask | ShiftMask, CHAIN,  KEY,   toggletag,  {.ui = 1 << TAG}},\
-  {MODKEY | Mod1Mask, CHAIN, KEY, tagnextmon, {.ui = 1 << TAG}},                  \
-  {MODKEY | Mod1Mask | ShiftMask, CHAIN, KEY, tagprevmon, {.ui = 1 << TAG}},      \
+#define TAGKEYS(CHAIN, KEY, TAG)                                                \
+  {MODKEY, CHAIN, KEY, view, {.ui = 1 << TAG}},                                 \
+  {MODKEY | ControlMask, CHAIN, KEY, toggleview, {.ui = 1 << TAG}},             \
+  {MODKEY | Mod1Mask | ControlMask, CHAIN, KEY, swaptags, {.ui = 1 << TAG}},    \
+  {MODKEY | ShiftMask, CHAIN, KEY, tag, {.ui = 1 << TAG}},                      \
+  {MODKEY | ControlMask | ShiftMask, CHAIN, KEY, toggletag, {.ui = 1 << TAG}},  \
+  {MODKEY | Mod1Mask, CHAIN, KEY, tagnextmon, {.ui = 1 << TAG}},                \
+  {MODKEY | Mod1Mask | ShiftMask, CHAIN, KEY, tagprevmon, {.ui = 1 << TAG}},
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) {.v = (const char *[]) { "/bin/sh", "-c", cmd, NULL }}
+#define SHCMD(cmd) {.v = (const char *[]) { "/bin/sh", "-c", cmd, NULL } }
 #include "shiftviewclients.c"
 #include <X11/XF86keysym.h>
 #define STATUSBAR "dwmblocks"
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = {"dmenu_run", "-m",  dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor,  NULL};
+static const char *dmenucmd[] = {"dmenu_run", "-m",  dmenumon, "-fn", dmenufont,  "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor,  NULL};
 /* static const char *logoutcmd[] = {"$HOME/.config/scripts/shutdown_menu", NULL}; */
 /* static const char *polybar[] = {"$HOME/.config/polybar/launch.sh", NULL}; */
 static const char *roficmd[] = {"rofi",  "-modi", "window,ssh,drun,run", "-show", "drun",  NULL};
@@ -182,16 +177,18 @@ static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = {"alacritty", "-t", scratchpadname, NULL};
 static const char *screenshot[] = {"flameshot", "gui", NULL};
 static const char *termcmd[] = {"st", NULL};
-static const char *trayer[] = {"trayer", "--widthtype", "pixel", "--width", "20",     "--height",    "20",    "--align", "right",  "--edge",      "top",   NULL};
+static const char *trayer[] = {"trayer", "--widthtype", "pixel", "--width", "20", "--height", "20", "--align", "right", "--edge", "top", NULL};
 static const char *volcontrol[] = {"pavucontrol", NULL};
 
 // Media functions
-// static const char *upvol[] = { "amixer", "-q", "-D", "pulse", "sset", "Master", "5%+", NULL};
-// static const char *downvol[] = { "amixer", "-q","-D", "pulse", "sset", "Master", "5%-", NULL};
-// static const char *mutevol[] = { "amixer", "-q", "-D", "pulse", "sset", "Master", "toggle", NULL};
+// static const char *upvol[] = { "amixer", "-q", "-D", "pulse", "sset",
+// "Master", "5%+", NULL}; static const char *downvol[] = { "amixer", "-q","-D",
+// "pulse", "sset", "Master", "5%-", NULL}; static const char *mutevol[] = {
+// "amixer", "-q", "-D", "pulse", "sset", "Master", "toggle", NULL};
 static const char *playpause[] = {"playerctl", "play-pause", NULL};
 static const char *playnext[] = {"playerctl", "next", NULL};
 static const char *playprev[] = {"playerctl", "previous", NULL};
+static const char *stop[] = {"playerctl", "stop", NULL};
 // static const char *brightup[] = { "light", "-A", "5", NULL};
 // static const char *brightdown[] = { "light", "-U", "5", NULL};
 
@@ -225,7 +222,7 @@ static Key keys[] = {
     {MODKEY, -1, XK_Return, spawn, {.v = termcmd}},
     {MODKEY, -1, XK_grave, togglescratch, {.v = scratchpadcmd}},
     {MODKEY | ShiftMask, -1, XK_b, togglebar, {0}},
-    /* { MODKEY|ControlMask, -1,          XK_b,      spawn,          SHCMD("$XDG_CONFIG_HOME/polybar/launch.sh") }, */
+    /* { MODKEY|ControlMask, -1,          XK_b,      spawn, SHCMD("$XDG_CONFIG_HOME/polybar/launch.sh") }, */
     {MODKEY | ShiftMask, -1, XK_v, spawn, {.v = volcontrol}},
     {0, -1, XK_Print, spawn, {.v = screenshot}},
     {MODKEY | ShiftMask, -1, XK_p, spawn, {.v = trayer}},
@@ -311,23 +308,41 @@ static Key keys[] = {
     /* { 0,                  -1,          XF86XK_AudioLowerVolume, spawn, {.v = downvol } }, */
     /* { 0,                  -1,          XF86XK_AudioMute,        spawn, {.v = mutevol } }, */
     /* { 0,                  -1,          XF86XK_AudioRaiseVolume, spawn, {.v = upvol } }, */
-    {0, -1, XF86XK_AudioMute, spawn, SHCMD("pamixer -t; pkill -RTMIN+2 dwmblocks")},
-    {0, -1, XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer -i 5; pkill -RTMIN+2 dwmblocks")},
-    {0, -1, XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer -d 5; pkill -RTMIN+2 dwmblocks")},
+    // {0, -1, XF86XK_AudioMute, spawn, SHCMD("pamixer -t; pkill -RTMIN+2 dwmblocks")},
+    // {0, -1, XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer -i 5; pkill -RTMIN+2 dwmblocks")},
+    // {0, -1, XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer -d 5; pkill -RTMIN+2 dwmblocks")},
+    {0, -1, XF86XK_AudioMute, spawn, SHCMD("pamixer -t; $XDG_CONFIG_HOME/scripts/speakervolume; pkill -RTMIN+2 dwmblocks; polybar-msg hook pulvol 1")},
+    {0, -1, XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer -i 5; $XDG_CONFIG_HOME/scripts/speakervolume; pkill -RTMIN+2 dwmblocks; polybar-msg hook pulvol 1")},
+    {0, -1, XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer -d 5; $XDG_CONFIG_HOME/scripts/speakervolume; pkill -RTMIN+2 dwmblocks; polybar-msg hook pulvol 1")},
     /* { MODKEY, 	     	  -1,		   XK_F6, spawn, SHCMD("micmute; pkill -RTMIN+3 dwmblocks") }, */
     /* { MODKEY,    	      -1,		   XK_F8, spawn, SHCMD("micvolincrease; pkill -RTMIN+3 dwmblocks") }, */
     /* { MODKEY,    		  -1,		   XK_F7, spawn, SHCMD("micvoldecrease; pkill -RTMIN+3 dwmblocks") }, */
-    {MODKEY, -1, XK_Home, spawn, SHCMD("micmute; pkill -RTMIN+3 dwmblocks")},
-    {MODKEY, -1, XK_Prior, spawn, SHCMD("micvolincrease; pkill -RTMIN+3 dwmblocks")},
-    {MODKEY, -1, XK_Next, spawn, SHCMD("micvoldecrease; pkill -RTMIN+3 dwmblocks")},
+    // {MODKEY, -1, XK_Home, spawn, SHCMD("micmute; pkill -RTMIN+3 dwmblocks")},
+    // {MODKEY, -1, XK_Prior, spawn, SHCMD("micvolincrease; pkill -RTMIN+3 dwmblocks")},
+    // {MODKEY, -1, XK_Next, spawn, SHCMD("micvoldecrease; pkill -RTMIN+3 dwmblocks")},
+    // {MODKEY, -1, XK_F1, spawn, SHCMD("micmute; pkill -RTMIN+3 dwmblocks")},
+    // {MODKEY, -1, XK_F3, spawn, SHCMD("micvolincrease; pkill -RTMIN+3 dwmblocks")},
+    // {MODKEY, -1, XK_F2, spawn, SHCMD("micvoldecrease; pkill -RTMIN+3 dwmblocks")},
+    {MODKEY, -1, XK_F1, spawn, SHCMD("pamixer --default-source -t; $XDG_CONFIG_HOME/scripts/micvolume; pkill -RTMIN+3 dwmblocks; polybar-msg hook mic-volume 1")},
+    {MODKEY, -1, XK_F3, spawn, SHCMD("pamixer --default-source -i 5; $XDG_CONFIG_HOME/scripts/micvolume; pkill -RTMIN+3 dwmblocks; polybar-msg hook mic-volume 1")},
+    {MODKEY, -1, XK_F2, spawn, SHCMD("pamixer --default-source -d 5; $XDG_CONFIG_HOME/scripts/micvolume; pkill -RTMIN+3 dwmblocks; polybar-msg hook mic-volume 1")},
     {0, -1, XF86XK_AudioPlay, spawn, {.v = playpause}},
     {0, -1, XF86XK_AudioPause, spawn, {.v = playpause}},
     {0, -1, XF86XK_AudioNext, spawn, {.v = playnext}},
     {0, -1, XF86XK_AudioPrev, spawn, {.v = playprev}},
+    {0, -1, XF86XK_AudioStop, spawn, {.v = stop}},
     /* { 0,                  -1,          XF86XK_MonBrightnessUp,   spawn, {.v = brightup } }, */
     /* { 0,                  -1,          XF86XK_MonBrightnessDown, spawn, {.v = brightdown } }, */
-    /* { 0,                  -1,          XF86XK_MonBrightnessUp,   spawn, SHCMD("light -A 5; pkill -RTMIN+6 dwmblocks") }, */
-    /* { 0,                  -1,          XF86XK_MonBrightnessDown, spawn, SHCMD("light -U 5; pkill -RTMIN+6 dwmblocks") }, */
+    // { 0,                  -1,          XF86XK_MonBrightnessUp,   spawn, SHCMD("light -A 5; pkill -RTMIN+6 dwmblocks") },
+    // { 0,                  -1,          XF86XK_MonBrightnessDown, spawn, SHCMD("light -U 5; pkill -RTMIN+6 dwmblocks") },
+    // { 0,                  -1,          XF86XK_MonBrightnessUp,   spawn, SHCMD("light -A 5; $XDG_CONFIG_HOME/scripts/setbright; notify-send -t 1000 -i $HOME/Pictures/sun.png Brightness $(light)%; pkill -RTMIN+6 dwmblocks") },
+    // { 0,                  -1,          XF86XK_MonBrightnessDown, spawn, SHCMD("light -U 5; $XDG_CONFIG_HOME/scripts/setbright; notify-send -t 1000 -i $HOME/Pictures/sun.png Brightness $(light)%; pkill -RTMIN+6 dwmblocks") },
+    // { 0,                  -1,          XF86XK_MonBrightnessUp,   spawn, SHCMD("light -A 5; light -s sysfs/backlight/nvidia_wmi_ec_backlight -A 5; notify-send -t 1000 -i $HOME/Pictures/sun.png Brightness $(light)%; pkill -RTMIN+6 dwmblocks") },
+    // { 0,                  -1,          XF86XK_MonBrightnessDown, spawn, SHCMD("light -U 5; light -s sysfs/backlight/nvidia_wmi_ec_backlight -U 5; notify-send -t 1000 -i $HOME/Pictures/sun.png Brightness $(light)%; pkill -RTMIN+6 dwmblocks") },
+    // { 0,                  -1,          XF86XK_MonBrightnessUp,   spawn, SHCMD("light -A 5; light -s sysfs/backlight/nvidia_wmi_ec_backlight -S $(light); notify-send -t 1000 -i $HOME/Pictures/sun.png Brightness $(light)%; pkill -RTMIN+6 dwmblocks; polybar-msg hook bright 1") },
+    // { 0,                  -1,          XF86XK_MonBrightnessDown, spawn, SHCMD("light -U 5; light -s sysfs/backlight/nvidia_wmi_ec_backlight -S $(light); notify-send -t 1000 -i $HOME/Pictures/sun.png Brightness $(light)%; pkill -RTMIN+6 dwmblocks; polybar-msg hook bright 1") },
+    // {MODKEY, -1, XK_F5, spawn, SHCMD("$XDG_CONFIG_HOME/scripts/60hz.sh")},
+    // {MODKEY, -1, XK_F6, spawn, SHCMD("$XDG_CONFIG_HOME/scripts/165hz.sh")},
     /* { MODKEY,             -1,          XK_F4,                   spawn, SHCMD("toggletouchpad") }, */
 
     // Tag Movement
@@ -365,11 +380,11 @@ static Key keys[] = {
     // Quit DWM
     {MODKEY | ShiftMask, -1, XK_z, quit, {0}},
     {MODKEY | ControlMask | ShiftMask, -1, XK_q, quit, {1}},
-    {MODKEY, -1, XK_z, spawn, SHCMD("$XDG_CONFIG_HOME/scripts/shutdown_menu")},
+    {MODKEY, -1, XK_z, spawn, SHCMD("$XDG_CONFIG_HOME/scripts/signoff")},
 };
 
 /* button definitions */
-/* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, * ClkClientWin, or ClkRootWin */
+/* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
     /* click                event mask      button          function argument */
     {ClkLtSymbol, 0, Button1, setlayout, {0}},

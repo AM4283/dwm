@@ -5,25 +5,26 @@ This is my personal build. Able to use polybar as a bar. Currently used with my 
 
 ## Patches
 This build includes the patches:
-| Patch | Functionality |
-| :-- |:-- |
-| actualfullscreen | **True fullscreen support**
-| alpha            | **Default bar transparency, transparent window border fix**
-| anybar (with polybar tray fix) | **Alternate bar support**
-| attach direction | **Different master/slave behavior support** 
-| autostart        | **Autostart script support**
-| bottomstack      | **Bottom stack and bottom stack horizontal layouts**
-| cfacts           | **Allows for resizing of windows vertically**
-| colorbar         | **More configurable default statusbar colors**
-| combo            | **Support for selecting multiple tags by holding down mod+tag**
-| centeredmaster   | **Centered master layout**
-| cyclelayouts     | **Cycle through layouts w/ bindings**
-| deck             | **Deck layout (monocole on stack)**
-| fibonacci        | **Fibonacci and dwindle layouts**
-| floatrules       | **Configurable rules for sizing floating windows on spawn**
-| focusadjacenttag | **Focuses or moves window to left/right tag**
-| focusmaster      | **Focus master keybindings**
-| focusonnetactive | **Makes DWM focus windows requested by NET_ACTIVE_WINDOW (allows skippy-xd to work)**
+
+| Patch            | Functionality   |
+|:-----------------|:----------------|
+| actualfullscreen | **True fullscreen support** |
+| alpha            | **Default bar transparency, transparent window border fix** |
+| anybar (with polybar tray fix) | **Alternate bar support** |
+| attach direction | **Different master/slave behavior support**  |
+| autostart        | **Autostart script support** |
+| bottomstack      | **Bottom stack and bottom stack horizontal layouts** |
+| cfacts           | **Allows for resizing of windows vertically** |
+| colorbar         | **More configurable default statusbar colors** |
+| combo            | **Support for selecting multiple tags by holding down mod+tag** |
+| centeredmaster   | **Centered master layout** |
+| cyclelayouts     | **Cycle through layouts w/ bindings** |
+| deck             | **Deck layout (monocole on stack)** |
+| fibonacci        | **Fibonacci and dwindle layouts** |
+| floatrules       | **Configurable rules for sizing floating windows on spawn** |
+| focusadjacenttag | **Focuses or moves window to left/right tag** |
+| focusmaster      | **Focus master keybindings** |
+| focusonnetactive | **Makes DWM focus windows requested by NET_ACTIVE_WINDOW (allows skippy-xd to work)** |
 | gridmode         | **Grid, horizontal grid, nrowgrid, gapless grid, layouts** |
 | hide vacant tags | **Hide tags on default statusbar that are empty** |
 | inplacerotate    | **Able to move windows only in stack or only in master** |
@@ -174,5 +175,7 @@ This build includes the patches:
 
 Currently, the dependencies include the default dwm dependencies as well as:
 ```
-Rofi, polybar w/dwm module, alacritty, light, flameshot, playerctl, pavucontrol, font awesome, mononoki Nerd Font, Hack font, Noto Color emoji, rofimoji, rofi scripts, skippy-xd-git, sxiv, yajl, jsoncpp, trayer
+Rofi, polybar w/dwm module, alacritty, light, flameshot, playerctl, pavucontrol, 
+font awesome, mononoki Nerd Font, Hack font, Noto Color emoji, rofimoji, 
+rofi scripts, skippy-xd-git, sxiv, yajl, jsoncpp, trayer
 ```

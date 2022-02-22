@@ -2081,6 +2081,7 @@ void run(void) {
                                           tags, LENGTH(tags), layouts,
                                           LENGTH(layouts)) < 0) {
           fprintf(stderr, "Error handling IPC event on fd %d\n", event_fd);
+          XSync(dpy, False);
         }
       } else {
         fprintf(stderr, "Got event from unknown fd %d, ptr %p, u32 %d, u64 %lu",
