@@ -151,7 +151,7 @@ struct Client {
   int x, y, w, h;
   int sfx, sfy, sfw, sfh; /* stored float geometry, used on mode revert */
   int oldx, oldy, oldw, oldh;
-  int basew, baseh, incw, inch, maxw, maxh, minw, minh;
+  int basew, baseh, incw, inch, maxw, maxh, minw, minh, hintsvalid;
   int bw, oldbw;
   unsigned int tags;
   int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen,
@@ -592,6 +592,8 @@ int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact) {
   if (*w < bh)
     *w = bh;
   if (resizehints || c->isfloating || !c->mon->lt[c->mon->sellt]->arrange) {
+    if (!c->hintsvalid)
+      updatesizehints(c);
     /* see last two sentences in ICCCM 4.1.2.3 */
     baseismin = c->basew == c->minw && c->baseh == c->minh;
     if (!baseismin) { /* temporarily remove base dimensions */
@@ -851,6 +853,7 @@ void cleanup(void) {
     drw_cur_free(drw, cursor[i]);
   for (i = 0; i < LENGTH(colors); i++)
     free(scheme[i]);
+  free(scheme);
   XDestroyWindow(dpy, wmcheckwin);
   drw_free(drw);
   XSync(dpy, False);
@@ -1116,6 +1119,8 @@ void drawbar(Monitor *m) {
   int boxw = drw->fonts->h / 6 + 2;
   unsigned int i, occ = 0, urg = 0;
   Client *c;
+  if (!m->showbar)
+    return;
 
   /* draw status first so it can be overdrawn by tags later */
   if (m == selmon || 1) { /* status is only drawn on selected monitor */
@@ -1284,7 +1289,7 @@ void focusmon(const Arg *arg) {
 void focusstack(const Arg *arg) {
   Client *c = NULL, *i;
 
-  if (!selmon->sel || selmon->sel->isfullscreen)
+  if (!selmon->sel || (selmon->sel->isfullscreen && lockfullscreen))
     return;
   if (arg->i > 0) {
     for (c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next)
@@ -1864,7 +1869,7 @@ void propertynotify(XEvent *e) {
         arrange(c->mon);
       break;
     case XA_WM_NORMAL_HINTS:
-      updatesizehints(c);
+      c->hintsvalid = 0;
       break;
     case XA_WM_HINTS:
       updatewmhints(c);
@@ -3108,60 +3113,58 @@ int updategeom(void) {
         memcpy(&unique[j++], &info[i], sizeof(XineramaScreenInfo));
     XFree(info);
     nn = j;
-    if (n <= nn) { /* new monitors available */
-      for (i = 0; i < (nn - n); i++) {
-        for (m = mons; m && m->next; m = m->next)
-          ;
-        if (m)
-          m->next = createmon();
-        else
-          mons = createmon();
+    for (i = n; i < nn; i++) {
+      for (m = mons; m && m->next; m = m->next);
+      if (m)
+        m->next = createmon();
+      else
+        mons = createmon();
+    }
+    for (i = 0, m = mons; i < nn && m; m = m->next, i++)
+      if (i >= n
+      || unique[i].x_org != m-> mx || unique[i].y_org != m->my
+      || unique[i].width != m-> mw || unique[i].height != m->mh)
+      {
+        dirty = 1;
+        m->num = i;
+        m->mx = m->wx = unique[i].x_org;
+        m->my = m->wy = unique[i].y_org;
+        m->mw = m->ww = unique[i].width;
+        m->mh = m->wh = unique[i].height;
+        updatebarpos(m);
       }
-      for (i = 0, m = mons; i < nn && m; m = m->next, i++)
-        if (i >= n || unique[i].x_org != m->mx || unique[i].y_org != m->my ||
-            unique[i].width != m->mw || unique[i].height != m->mh) {
-          dirty = 1;
-          m->num = i;
-          m->mx = m->wx = unique[i].x_org;
-          m->my = m->wy = unique[i].y_org;
-          m->mw = m->ww = unique[i].width;
-          m->mh = m->wh = unique[i].height;
-          updatebarpos(m);
+      /* removed monitors if n > nn */
+    for (i = nn; i < n; i++) {
+      for (m = mons; m && m->next; m = m->next);
+      while ((c = m->clients)) {
+        dirty = 1;
+        m->clients = c->next;
+        detachstack(c);
+        c->mon = mons;
+        switch (attachdirection) {
+        case 1:
+          attachabove(c);
+          break;
+        case 2:
+          attachaside(c);
+          break;
+        case 3:
+          attachbelow(c);
+          break;
+        case 4:
+          attachbottom(c);
+          break;
+        case 5:
+          attachtop(c);
+          break;
+        default:
+          attach(c); 
         }
-    } else { /* less monitors available nn < n */
-      for (i = nn; i < n; i++) {
-        for (m = mons; m && m->next; m = m->next)
-          ;
-        while ((c = m->clients)) {
-          dirty = 1;
-          m->clients = c->next;
-          detachstack(c);
-          c->mon = mons;
-          switch (attachdirection) {
-          case 1:
-            attachabove(c);
-            break;
-          case 2:
-            attachaside(c);
-            break;
-          case 3:
-            attachbelow(c);
-            break;
-          case 4:
-            attachbottom(c);
-            break;
-          case 5:
-            attachtop(c);
-            break;
-          default:
-            attach(c);
-          }
-          attachstack(c);
-        }
+        attachstack(c);
+      }
         if (m == selmon)
           selmon = mons;
         cleanupmon(m);
-      }
     }
     free(unique);
   } else
@@ -3236,6 +3239,7 @@ void updatesizehints(Client *c) {
   } else
     c->maxa = c->mina = 0.0;
   c->isfixed = (c->maxw && c->maxh && c->maxw == c->minw && c->maxh == c->minh);
+  c->hintsvalid = 1;
 }
 
 void updatestatus(void) {

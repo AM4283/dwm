@@ -11,12 +11,12 @@ static const unsigned int gappov = 10; /* vert outer gap between windows and scr
 static int smartgaps = 0;                  /* 1 means no outer gap when there is only one window */
 static int showbar = 1; /* 0 means no bar */
 static int topbar = 1;  /* 0 means bottom bar */
-static const int usealtbar = 1;             /* 1 means use non-dwm status bar */
+static const int usealtbar = 0;             /* 1 means use non-dwm status bar */
 static const char *altbarclass = "Polybar"; /* Alternate bar class name */
 static const char *alttrayname = "tray";    /* Polybar tray instance name */
  /* Alternate bar launch command */
-static const char *altbarcmd = "$HOME/.config/polybar/launch.sh";
-// static const char *altbarcmd = "";
+// static const char *altbarcmd = "$HOME/.config/polybar/launch.sh";
+static const char *altbarcmd = "";
 static const Bool viewontag = True; /* Switch view on tag switch */
 // Fonts
 static char font1[] = "fixed:size=12:antialias=true:autohint=true";
@@ -83,13 +83,14 @@ static const Rule rules[] = {
      *	WM_NAME(STRING) = title
      */
     /* class      instance    title       tags mask  isfloating  isterminal noswallow  monitor    float x,y,w,h       floatborderpx */
+    {"origin.exe", NULL, NULL, 1<<8, 1, 0, -1, -1, -1, -1, 750, 500, 2},
     {"Alacritty", NULL, NULL, 0, 0, 1, 0, -1, 100, 100, 750, 750, 2},
     {"Alacritty", "editing", NULL, 0, 1, 1, 0, -1, 50, 50, 500, 500, 2},
     {"Anydesk", NULL, NULL, 0, 1, 0, -1, -1, -1, -1, -1, -1, 2},
     {"Brave-browser", NULL, NULL, 1 << 1, 0, 0, -1, -1, 50, 50, 500, 500, 2},
     {"cemu.exe", NULL, NULL, 0, 1, 0, -1, -1, -1, -1, -1, -1, 2},
     {"discord", NULL, NULL, 1 << 3, 0, 0, -1, 1, 50, 50, 500, 500, 2},
-    {"epicgameslauncher.exe", NULL, NULL, 0, 1, 0, -1, -1, -1, -1, -1, -1, 2},
+    {"epicgameslauncher.exe", NULL, NULL, 0, 1, 0, -1, -1, -1, -1, 750, 500, 2},
     {NULL, NULL, "Event Tester", 0, 0, 0, 1, -1, 50, 50, 500, 500, 2}, /* xev */
     {"Firefox", NULL, NULL, 1 << 1, 0, 0, -1, 1, 50, 50, 500, 500, 2},
     {"firefox", NULL, NULL, 1 << 1, 0, 0, -1, 1, 50, 50, 500, 500, 2},
@@ -126,6 +127,7 @@ static const Rule rules[] = {
 static float mfact = 0.50;  /* factor of master area size [0.05..0.95] */
 static int nmaster = 1;     /* number of clients in master area */
 static int resizehints = 1; /* 1 means respect size hints in tiled resizals */
+static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window*/
 static const int attachdirection = 0; /* 0 default, 1 above, 2 aside, 3 below, 4 bottom, 5 top */
 #define FORCE_VSPLIT 1 /* nrowgrid layout: force two clients to always split vertically */
 #include "tagall.c"
@@ -222,7 +224,7 @@ static Key keys[] = {
     {MODKEY, -1, XK_Return, spawn, {.v = termcmd}},
     {MODKEY, -1, XK_grave, togglescratch, {.v = scratchpadcmd}},
     {MODKEY | ShiftMask, -1, XK_b, togglebar, {0}},
-    /* { MODKEY|ControlMask, -1,          XK_b,      spawn, SHCMD("$XDG_CONFIG_HOME/polybar/launch.sh") }, */
+    {MODKEY | ControlMask, -1,          XK_b,      spawn, SHCMD("$XDG_CONFIG_HOME/polybar/launch.sh") },
     {MODKEY | ShiftMask, -1, XK_v, spawn, {.v = volcontrol}},
     {0, -1, XK_Print, spawn, {.v = screenshot}},
     {MODKEY | ShiftMask, -1, XK_p, spawn, {.v = trayer}},
@@ -238,6 +240,7 @@ static Key keys[] = {
     {MODKEY | ShiftMask, XK_d, XK_apostrophe, spawn, SHCMD("rofi -show emoji -modi emoji")},
     {MODKEY | ShiftMask, XK_d, XK_b, spawn, SHCMD("$XDG_CONFIG_HOME/scripts/backgroundswitcher")},
     {MODKEY | ShiftMask, XK_d, XK_t, spawn, SHCMD("~/themes/themes.sh")},
+    {MODKEY | ShiftMask, XK_d, XK_c, spawn, SHCMD("rofi -show calc -modi calc -no-show-match -no-sort")},
 
     // Stack Movement
     {MODKEY, -1, XK_j, focusstack, {.i = +1}},
