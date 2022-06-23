@@ -3,6 +3,9 @@ The Suckless Dynamic Window Manager.
 
 This is my personal build. Able to use polybar as a bar. Currently used with my build of dwmblocks + necessary scripts.
 
+## Preview
+![2022-06-22_20-27](https://user-images.githubusercontent.com/78922336/175182537-2c2d2b9f-638f-4059-a485-d1fe1a2edfa1.png)
+
 ## Patches
 This build includes the patches:
 
