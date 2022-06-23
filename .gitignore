@@ -1,8 +1,0 @@
-autostart.sh
-*.bak
-*.orig
-*.rej
-*.o
-dwm
-dwm-msg
-patches/dwm-attachasideandbelow-20200702-f04cac6.diff

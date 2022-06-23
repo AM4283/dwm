@@ -83,6 +83,7 @@ This build includes the patches:
     * **Apostrophe** Launch rofi emoji prompt
     * **B** Launch sxiv background selection prompt
     * **T** Launch rofi theme selection prompt
+    * **C** Launch calculator rofi prompt
 
 ### Window Movement
   - **Mod+j/k** Focus stack up/down
@@ -157,13 +158,14 @@ This build includes the patches:
 ### Media Controls
   - **Brightness up/down** Increase/decrease backlight
   - **Audio up/down/mute** Increase/decrease/mute active speakers
-  - **Mod+F6** Mute mic
-  - **Mod+F7** Decease mic volume
-  - **Mod+F8** Increase mic volume
+  - **Mod+F1** Mute mic
+  - **Mod+F2** Decease mic volume
+  - **Mod+F3** Increase mic volume
   - **Mod+Home** Alternate mute mic
   - **Mod+Pgup** Alternate increase mic volume
   - **Mod+Pgdown** Alternate decrease mic volume
   - **Playpause/Previous/Next** Pause/play/skip back/skip next on current audio application
+  - **Stop** Stop currently playing audio
 
 ### Quit DWM
   - **Mod+z** Rofi logout prompt
@@ -171,11 +173,22 @@ This build includes the patches:
   - **Mod+Shift+Control** Restart DWM
 
 ## Dependencies
-*Unfinished List*
 
 Currently, the dependencies include the default dwm dependencies as well as:
 ```
-Rofi, polybar w/dwm module, alacritty, light, flameshot, playerctl, pavucontrol, 
-font awesome, mononoki Nerd Font, Hack font, Noto Color emoji, rofimoji, 
-rofi scripts, skippy-xd-git, sxiv, yajl, jsoncpp, trayer
+rofi and/or dmenu, rofi-emoji (optional), rofi-calc (optional), st and/or alacritty, polybar-dwm-module (optional), dwmblocks (optional), light,
+flameshot, playerctl, pavucontrol, nerd-fonts-sans-regular-complete, noto-fons-cjk, noto-fonts-emoji, skippy-xd-git, libxft-bgra, yajl, jsoncpp, trayer
+
+The shutdown menu + background switcher + theme switcher + volume notification on up/down/mute keybindings do not work without custom scripts/images from my dotfiles 
+repo (~/Pictures and ~/.config/scripts and ~/themes)
+
+Most of these listed dependencies are uneeded if your usecase does not employ these programs. You can always add/remove bindings/settings for your own needs.
+Remember to go through the config before using this build!
+```
+### Installation
+Run these commands in a terminal
+```
+git clone https://github.com/AM4283/dwm.git
+cd dwm
+sudo make install
 ```
