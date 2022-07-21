@@ -8,7 +8,7 @@ static const unsigned int gappih = 10; /* horiz inner gap between windows */
 static const unsigned int gappiv = 10; /* vert inner gap between windows */
 static const unsigned int gappoh = 10; /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov = 10; /* vert outer gap between windows and screen edge */
-static int smartgaps = 0;                  /* 1 means no outer gap when there is only one window */
+static int smartgaps = 1;                  /* 1 means no outer gap when there is only one window */
 static const Bool viewontag = True; /* Switch view on tag switch */
 
 static int showbar = 1; /* 0 means no bar */
@@ -17,7 +17,7 @@ static const int usealtbar = 1;             /* 1 means use non-dwm status bar */
 static const char *altbarclass = "Polybar"; /* Alternate bar class name */
 static const char *alttrayname = "tray";    /* Polybar tray instance name */
 /* Alternate bar launch command */
-static const char *altbarcmd = "$HOME/.config/polybar/launch.sh";
+static const char *altbarcmd = "$XDG_CONFIG_HOME/polybar/launch.sh";
 // static const char *altbarcmd = "";
 
 // Fonts
@@ -114,6 +114,7 @@ static const Rule rules[] = {
     {"Steam", NULL, "Steam Keyboard", 0, 1, 0, -1, -1, -1, -1, -1, -1, 2},
     {"Steam", NULL, "Steam - News", 0, 1, 0, -1, -1, -1, -1, -1, -1, 2},
     {"trayer", NULL, NULL, 0, 1, 0, 1, -1, 50, 50, 10, 10, 0},
+    {"WebCord", NULL, NULL, 1 << 3, 0, 0, -1, 1, 50, 50, 500, 500, 2},
     {"Yad", NULL, NULL, 0, 1, 0, -1, -1, -1, -1, -1, -1, 2},
 };
 
@@ -149,10 +150,10 @@ static const Layout layouts[] = {
 // Replace view in the #define block below with "comboview" and tag with "combotag" and vice-versa to enable/disable combo patch
 #define MODKEY Mod4Mask
 #define TAGKEYS(CHAIN, KEY, TAG)                                                \
-  {MODKEY, CHAIN, KEY, view, {.ui = 1 << TAG}},                                 \
+  {MODKEY, CHAIN, KEY, comboview, {.ui = 1 << TAG}},                                 \
   {MODKEY | ControlMask, CHAIN, KEY, toggleview, {.ui = 1 << TAG}},             \
   {MODKEY | Mod1Mask | ControlMask, CHAIN, KEY, swaptags, {.ui = 1 << TAG}},    \
-  {MODKEY | ShiftMask, CHAIN, KEY, tag, {.ui = 1 << TAG}},                      \
+  {MODKEY | ShiftMask, CHAIN, KEY, combotag, {.ui = 1 << TAG}},                      \
   {MODKEY | ControlMask | ShiftMask, CHAIN, KEY, toggletag, {.ui = 1 << TAG}},  \
   {MODKEY | Mod1Mask, CHAIN, KEY, tagnextmon, {.ui = 1 << TAG}},                \
   {MODKEY | Mod1Mask | ShiftMask, CHAIN, KEY, tagprevmon, {.ui = 1 << TAG}},
@@ -166,7 +167,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = {"dmenu_run", "-m",  dmenumon, "-fn", dmenufont,  "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor,  NULL};
-// static const char *polybar[] = {"$HOME/.config/polybar/launch.sh", NULL};
+// static const char *polybar[] = {"$XDG_CONFIG_HOME/polybar/launch.sh", NULL};
 static const char *roficmd[] = {"rofi",  "-modi", "window,ssh,drun,run", "-show", "drun",  NULL};
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = {"st", "-T", scratchpadname, NULL};
@@ -210,14 +211,17 @@ ResourcePref resources[] = {
 
 static Key keys[] = {
     /* modifier          chainkey   key        function        argument */
+    // Keybind Help dialog (requires zathura)
+    {MODKEY | ShiftMask, -1, XK_BackSpace, spawn, SHCMD("zathura $HOME/suckless/dwm/keybinds.pdf")},
+
     // Program launching
     {MODKEY, -1, XK_Return, spawn, {.v = termcmd}},
-    {MODKEY, -1, XK_grave, togglescratch, {.v = scratchpadcmd}},
-    {MODKEY | ShiftMask, -1, XK_b, togglebar, {0}},
-    {MODKEY | ControlMask, -1,          XK_b,      spawn, SHCMD("$XDG_CONFIG_HOME/polybar/launch.sh") },
-    {MODKEY | ShiftMask, -1, XK_v, spawn, {.v = volcontrol}},
+    {MODKEY, -1, XK_grave,  togglescratch, {.v = scratchpadcmd}},
+    {MODKEY | ShiftMask,   -1,  XK_b, togglebar, {0}},
+    {MODKEY | ControlMask, -1,  XK_b, spawn, SHCMD("$XDG_CONFIG_HOME/polybar/launch.sh")},
+    {MODKEY | ShiftMask,   -1,  XK_v, spawn, {.v = volcontrol}},
+    {MODKEY | ShiftMask,   -1,  XK_p, spawn, {.v = trayer}},
     {0, -1, XK_Print, spawn, {.v = screenshot}},
-    {MODKEY | ShiftMask, -1, XK_p, spawn, {.v = trayer}},
 
     // Rofi/dmenu
     {MODKEY, -1, XK_p, spawn, {.v = dmenucmd}},
@@ -228,7 +232,7 @@ static Key keys[] = {
     {MODKEY | ShiftMask, XK_d, XK_n, spawn, SHCMD("$XDG_CONFIG_HOME/scripts/dmnotes")},
     {MODKEY | ShiftMask, XK_d, XK_apostrophe, spawn, SHCMD("rofi -show emoji -modi emoji")},
     {MODKEY | ShiftMask, XK_d, XK_b, spawn, SHCMD("$XDG_CONFIG_HOME/scripts/backgroundswitcher")},
-    {MODKEY | ShiftMask, XK_d, XK_t, spawn, SHCMD("~/themes/themes.sh")},
+    {MODKEY | ShiftMask, XK_d, XK_t, spawn, SHCMD("$HOME/themes/themes.sh")},
     {MODKEY | ShiftMask, XK_d, XK_c, spawn, SHCMD("rofi -show calc -modi calc -no-show-match -no-sort")},
 
     // Stack Movement

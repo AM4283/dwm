@@ -1,7 +1,7 @@
 # DWM
-The Suckless Dynamic Window Manager.
+The <a href="https://dwm.suckless.org/" target="_blank">Suckless Dynamic Window Manager</a>.
 
-This is my personal build. Able to use polybar as a bar. Currently used with my build of dwmblocks + necessary scripts.
+This is my personal build. Able to use <a href="https://polybar.github.io/" target="_blank">polybar</a> as a bar. Currently used with my build of <a href="https://github.com/AM4283/dwmblocks" target="_blank">dwmblocks</a> and <a href="https://github.com/AM4283/st" target="_blank">st</a> + <a href="https://github.com/AM4283/dotfiles" target="_blank">necessary scripts</a>.
 
 ## Preview
 ![2022-06-22_20-27](https://user-images.githubusercontent.com/78922336/175182537-2c2d2b9f-638f-4059-a485-d1fe1a2edfa1.png)
@@ -67,6 +67,7 @@ This build includes the patches:
 
 ### Program launchers
   - **Mod** Super Key
+  - **Mod+Shift+Backspace** Spawn keybind reference pdf
   - **Mod+Enter** Spawn Terminal
   - **Mod+grave** Launch scratchpad
   - **Mod+Shift+b** Toggle bar
@@ -179,15 +180,16 @@ This build includes the patches:
 
 Currently, the dependencies include the default dwm dependencies as well as:
 ```
-rofi and/or dmenu, rofi-emoji (optional), rofi-calc (optional), st and/or alacritty, polybar-dwm-module (optional), dwmblocks (optional), light,
-flameshot, playerctl, pavucontrol, nerd-fonts-sans-regular-complete, noto-fons-cjk, noto-fonts-emoji, skippy-xd-git, libxft-bgra, yajl, jsoncpp, trayer
-
+rofi and/or dmenu, rofi-emoji (optional), rofi-calc (optional), st and/or alacritty, polybar-dwm-module (optional), dwmblocks (optional), light, ttf-fira-code, flameshot, 
+playerctl, pavucontrol, nerd-fonts-sans-regular-complete, nerd-fonts-mononoki, noto-fons-cjk, noto-fonts-emoji, skippy-xd-git, libxft-bgra, yajl, jsoncpp, trayer, zathura
+```
+<a href="https://github.com/dakata1337/polybar-dwm-module/" target="_blank">Up to date polybar-dwm-module</a> (the AUR package is out of date) <br>
 The shutdown menu + background switcher + theme switcher + volume notification on up/down/mute keybindings do not work without custom scripts/images from my dotfiles 
 repo (~/Pictures and ~/.config/scripts and ~/themes)
 
 Most of these listed dependencies are uneeded if your usecase does not employ these programs. You can always add/remove bindings/settings for your own needs.
+A compositor is needed for transparency effects! I recommend using picom
 Remember to go through the config before using this build!
-```
 ### Installation
 Run these commands in a terminal
 ```
@@ -195,3 +197,32 @@ git clone https://github.com/AM4283/dwm.git
 cd dwm
 sudo make install
 ```
+
+### Other Links
+Some of my other configurations for programs including scripts needed for parts of this build of dwm can be found on my GitHub:
+
+dotfiles/scripts<br>
+https://github.com/AM4283/dotfiles
+
+dwmblocks<br>
+https://github.com/AM4283/dwmblocks
+
+st<br>
+https://github.com/AM4283/st
+
+Use these builds along with my dotfiles to get (almost) my exact desktop!
+
+### Donate
+If you enjoy this rice, or any of my other dots on my GitHub and are feeling extra generous, you can donate crypto using the addresses below:
+
+**XMR**<br>
+48bMjDgejjBa5JMLmUXWHfUxxc4VztE9dSxsnJ5STqDcUcjYk9xHoK59ovWgm6BvrzFfbx2kEA3QyUmgcpzYJ4dH9cLWCYV
+
+**Bitcoin**<br>
+bc1quaj9206k2ughk8ryh7yq2vqa0esxpkt048ggpx
+
+
+**Ethereum**<br>
+0x5f954056E04a5fc0F0E777409935823e98dC0C83
+
+Make sure to give back to the creators of your favorite FOSS programs too!
