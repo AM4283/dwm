@@ -206,7 +206,7 @@ cd dwm
 sudo make install
 ```
 
-### Other Links
+## Other Links
 Some of my other configurations for programs including scripts needed for parts of this build of dwm can be found on my GitHub:
 
 - <a href="https://github.com/AM4283/dotfiles" target="_blank">dotfiles/scripts</a>
@@ -215,8 +215,12 @@ Some of my other configurations for programs including scripts needed for parts 
 
 Use these builds along with my dotfiles to get (almost) my exact desktop!
 
-### Donate
-If you enjoy this rice, or any of my other dots on my GitHub and are feeling extra generous, you can donate crypto using the addresses below:
+## Donate
+If you enjoy this rice, or any of my other dots on my GitHub and are feeling extra generous, you can donate money or crypto using the addresses below:
+
+[**Paypal**](https://www.paypal.me/bobwendy1)
+
+[**Venmo**](https://www.venmo.com/u/Bob-Wendy-1)
 
 **XMR**<br>
 48bMjDgejjBa5JMLmUXWHfUxxc4VztE9dSxsnJ5STqDcUcjYk9xHoK59ovWgm6BvrzFfbx2kEA3QyUmgcpzYJ4dH9cLWCYV
