@@ -6,7 +6,8 @@ This is my personal build. Able to use <a href="https://polybar.github.io/" targ
 ## Preview
 ![2022-06-22_20-27](https://user-images.githubusercontent.com/78922336/175182537-2c2d2b9f-638f-4059-a485-d1fe1a2edfa1.png)
 
-## Patches
+<details><summary><h2>Patches</h2></summary>
+<p>
 This build includes the patches:
 
 | Patch            | Functionality   |
@@ -62,8 +63,12 @@ This build includes the patches:
 | viewontag        | **Switches focus to tag when moving window** | 
 | warp             | **Warps cursor to center of focused window** |
 | Xresources       | **Allows settings to be loaded from an Xresources file** |
+</p>
+</details>
 
-## Keybinds
+<details><summary><h2>Keybinds</h2></summary>
+
+<p>
 
 ### Program launchers
   - **Mod** Super Key
@@ -175,6 +180,8 @@ This build includes the patches:
   - **Mod+z** Rofi logout prompt
   - **Mod+Shift+z** Quit DWM
   - **Mod+Shift+Control** Restart DWM
+</p>
+</details>
 
 ## Dependencies
 
@@ -184,11 +191,12 @@ rofi and/or dmenu, rofi-emoji (optional), rofi-calc (optional), st and/or alacri
 playerctl, pavucontrol, nerd-fonts-sans-regular-complete, nerd-fonts-mononoki, noto-fons-cjk, noto-fonts-emoji, skippy-xd-git, libxft-bgra, yajl, jsoncpp, trayer, zathura
 ```
 <a href="https://github.com/dakata1337/polybar-dwm-module/" target="_blank">Up to date polybar-dwm-module</a> (the AUR package is out of date) <br>
-The shutdown menu + background switcher + theme switcher + volume notification on up/down/mute keybindings do not work without custom scripts/images from my dotfiles 
-repo (~/Pictures and ~/.config/scripts and ~/themes)
+The shutdown menu + background switcher + theme switcher + volume notification on up/down/mute keybindings do not work without custom scripts/images from my <a href="https://github.com/AM4283/dotfiles" target="_blank">dotfiles</a> repo (~/Pictures and ~/.config/scripts and ~/themes)
 
 Most of these listed dependencies are uneeded if your usecase does not employ these programs. You can always add/remove bindings/settings for your own needs.
-A compositor is needed for transparency effects! I recommend using picom
+
+A compositor is needed for transparency effects! I recommend using ```picom```.
+
 Remember to go through the config before using this build!
 ### Installation
 Run these commands in a terminal
@@ -201,14 +209,9 @@ sudo make install
 ### Other Links
 Some of my other configurations for programs including scripts needed for parts of this build of dwm can be found on my GitHub:
 
-dotfiles/scripts<br>
-https://github.com/AM4283/dotfiles
-
-dwmblocks<br>
-https://github.com/AM4283/dwmblocks
-
-st<br>
-https://github.com/AM4283/st
+- <a href="https://github.com/AM4283/dotfiles" target="_blank">dotfiles/scripts</a>
+- <a href="https://github.com/AM4283/dwmblocks" target="_blank">dwmblocks</a>
+- <a href="https://github.com/AM4283/st" target="_blank">st</a>
 
 Use these builds along with my dotfiles to get (almost) my exact desktop!
 
