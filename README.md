@@ -35,6 +35,7 @@ This build includes the patches:
 | ipc              | **ipc functions** |
 | keychain         | **Keychord keybinding support** |
 | mark-new         | **Allows for windows to be marked and switched focus with** |
+| maximize         | **Allows for windows to be maximized horizontally and vertically with keybindings** |
 | netclientliststacking | **Allows for screensharing in certain applications (zoom)** |
 | pertag           | **Per tag layout support** |
 | resetlayout      | **Keybinding to reset size of windows in layout** |
@@ -113,7 +114,7 @@ This build includes the patches:
   - **Mod+Shift+q** Kill window
 
 ### Layouts
-  - Mod+r
+  - **Mod+r**
     * **T** master/slave layout
     * **F** floating layout
     * **M** monocle layout
@@ -130,6 +131,10 @@ This build includes the patches:
     * **L** Horizontal grid layout
     * **R** Reset placement/sizes of windows in layout
   - **Mod+f** Toggle fullscreen
+  - **Mod+Shift+f**
+    * **f** Maximize window (similar to monocle layout)
+    * **h/l** Maximize window horizontally
+    * **j/k** Maximize window vertically
   - **Mod+Space** Toggle previous layout
   - **Mod+Shift+Space** Toggle floating on window
   - **Mod+Control+comma/period** Cycle layout prev/next

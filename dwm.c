@@ -155,7 +155,7 @@ struct Client {
   int bw, oldbw;
   unsigned int tags;
   int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen,
-      isterminal, issticky, noswallow;
+      isterminal, issticky, noswallow, ismax, wasfloating;
   int issteam;
   int floatborderpx;
   int hasfloatbw;
@@ -1602,6 +1602,8 @@ void manage(Window w, XWindowAttributes *wa) {
                EnterWindowMask | FocusChangeMask | PropertyChangeMask |
                    StructureNotifyMask);
   grabbuttons(c, 0);
+  c->wasfloating = 0;
+  c->ismax = 0;
   if (!c->isfloating)
     c->isfloating = c->oldstate = trans != None || c->isfixed;
   if (c->isfloating)

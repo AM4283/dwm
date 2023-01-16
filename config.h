@@ -123,10 +123,11 @@ static float mfact = 0.50;  /* factor of master area size [0.05..0.95] */
 static int nmaster = 1;     /* number of clients in master area */
 static int resizehints = 1; /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window*/
-static const int attachdirection = 0; /* 0 default, 1 above, 2 aside, 3 below, 4 bottom, 5 top */
+static const int attachdirection = 4; /* 0 default, 1 above, 2 aside, 3 below, 4 bottom, 5 top */
 #define FORCE_VSPLIT 1 /* nrowgrid layout: force two clients to always split vertically */
 #include "tagall.c"
 #include "vanitygaps.c"
+#include "maximize.c"
 static const Layout layouts[] = {
     /* symbol     arrange function */
     {"[]=", tile}, /* first entry is default */
@@ -280,6 +281,11 @@ static Key keys[] = {
     {MODKEY, -1, XK_space, setlayout, {0}},
     {MODKEY | ShiftMask, -1, XK_space, togglefloating, {0}},
     {MODKEY, -1, XK_f, togglefullscr, {0}},
+    {MODKEY | ShiftMask, XK_f, XK_h, togglehorizontalmax, {0}},
+    {MODKEY | ShiftMask, XK_f, XK_l, togglehorizontalmax, {0}},
+    {MODKEY | ShiftMask, XK_f, XK_j, toggleverticalmax, {0}},
+    {MODKEY | ShiftMask, XK_f, XK_k, toggleverticalmax, {0}},
+    {MODKEY | ShiftMask, XK_f, XK_f, togglemaximize, {0}},
     {MODKEY | ShiftMask, -1, XK_s, togglesticky, {0}},
 
     // Gaps
